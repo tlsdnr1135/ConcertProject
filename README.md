@@ -73,3 +73,9 @@ https://github.com/users/tlsdnr1135/projects/1
 ###### 결제 API
 
 ![결제 API](https://github.com/user-attachments/assets/3b71a604-c32a-49ab-a3ad-f500f8a846ad)
+
+## ERD
+
+https://www.erdcloud.com/d/RzYbjwiTSHeAyuhER
+
+![ERD](https://github.com/user-attachments/assets/c16891a7-6b4c-435e-9084-8ae5424ca6d0)
