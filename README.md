@@ -2,19 +2,19 @@
 
 ## Milestone
 
---------------------
+
 https://github.com/users/tlsdnr1135/projects/1  
 <br>
 
 ## 플로우 차트
 
---------------------
+
 ![플로우 차트](https://github.com/user-attachments/assets/070125ac-c9aa-467e-8512-2b9b266f6d23)
 <br>
 
 ## 도메인 모델링
 
---------------------
+
 ![도메인 모델링](https://github.com/user-attachments/assets/9fb8b2d7-ddca-407a-8060-7043d4757f48)
 <br>
 <br>
@@ -22,7 +22,7 @@ https://github.com/users/tlsdnr1135/projects/1
 
 ## 시퀀스 다이어 그램
 
---------------------
+
 
 ### 1. 유저 토큰 발급 API
 ###### 대기열 조회 API
