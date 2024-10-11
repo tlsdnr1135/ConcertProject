@@ -130,3 +130,36 @@ https://www.erdcloud.com/d/RzYbjwiTSHeAyuhER
 ###### 결제 API
 
 ![결제 API](https://github.com/user-attachments/assets/0c8ba8e9-195b-442f-a93e-e0ae0e6f7be0)
+
+
+## 패키지 구조
+
+```text
+
+├── presentation
+│   ├── controller
+│   │   ├── concert
+│   │   ├── payment
+│   │   └── queue
+│   └── dto
+│       ├── concert
+│       ├── payment
+│       └── queue
+├── application
+│   ├── service
+│   │   ├── concert
+│   │   ├── payment
+│   │   └── queue
+│   └── repository
+│       ├── concert
+│       ├── payment
+│       └── queue
+├── domain
+│   ├── concert
+│   ├── payment
+│   └── queue
+└── infrastructure
+    ├── jpa
+    └── repositoryImpl
+
+```

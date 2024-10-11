@@ -1,4 +1,4 @@
-package com.hhp.concertreservation.presantation.dto.payment;
+package com.hhp.concertreservation.presentation.dto.payment;
 
 import lombok.Getter;
 

@@ -1,9 +1,8 @@
-package com.hhp.concertreservation.presantation.dto.concert;
+package com.hhp.concertreservation.presentation.dto.concert;
 
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
