@@ -1,8 +1,8 @@
-package com.hhp.concertreservation.presentation.controller.queue;
+package com.hhp.concertreservation.A_presentation.controller.queue;
 
-import com.hhp.concertreservation.presentation.dto.queue.AddConcertQueueReq;
-import com.hhp.concertreservation.presentation.dto.queue.AddConcertQueueRes;
-import com.hhp.concertreservation.presentation.dto.queue.SelectQueueByConcertRes;
+import com.hhp.concertreservation.A_presentation.dto.queue.AddConcertQueueReq;
+import com.hhp.concertreservation.A_presentation.dto.queue.AddConcertQueueRes;
+import com.hhp.concertreservation.A_presentation.dto.queue.SelectQueueByConcertRes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
