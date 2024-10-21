@@ -1,4 +1,4 @@
-package com.hhp.concertreservation.C_domain.queue;
+package com.hhp.concertreservation.C_domain.queue.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;

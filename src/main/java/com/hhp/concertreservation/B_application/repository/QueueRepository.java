@@ -1,7 +1,7 @@
 package com.hhp.concertreservation.B_application.repository;
 
-import com.hhp.concertreservation.C_domain.queue.Queue;
-import com.hhp.concertreservation.C_domain.queue.QueueItem;
+import com.hhp.concertreservation.C_domain.queue.entity.Queue;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
 
 import java.util.UUID;
 
@@ -13,6 +13,6 @@ public interface QueueRepository {
     Queue findQueueByConcertId(Long concertId); //대기열 조회
 
     int getQueueActiveUserCount(Long ConcertId);
-    int getQueueItemWaitingUserCount(UUID userId, Long queueId);
+    int getQueueItemWaitingProcedure(UUID userId, Long queueId);
 
 }

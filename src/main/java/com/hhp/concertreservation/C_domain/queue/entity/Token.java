@@ -1,4 +1,4 @@
-package com.hhp.concertreservation.C_domain.queue;
+package com.hhp.concertreservation.C_domain.queue.entity;
 
 
 import com.hhp.concertreservation.C_domain.member.User;
@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Set;
 
 @Getter
 @NoArgsConstructor

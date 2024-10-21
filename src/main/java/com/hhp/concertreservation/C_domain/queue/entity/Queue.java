@@ -1,12 +1,10 @@
-package com.hhp.concertreservation.C_domain.queue;
+package com.hhp.concertreservation.C_domain.queue.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -22,6 +20,13 @@ public class Queue {
 
     @Column(name = "MAX_ACTIVE_USER")
     private int maxActiveUser;
+
+    public boolean checkMaxActiveQueue(int activeUserCount) {
+        if(this.maxActiveUser <= activeUserCount) {
+            return true;
+        }
+        return false;
+    }
 
 
 }
