@@ -1,6 +1,6 @@
-package com.hhp.concertreservation.presentation.controller.payment;
+package com.hhp.concertreservation.A_presentation.controller.payment;
 
-import com.hhp.concertreservation.presentation.dto.payment.*;
+import com.hhp.concertreservation.A_presentation.dto.payment.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

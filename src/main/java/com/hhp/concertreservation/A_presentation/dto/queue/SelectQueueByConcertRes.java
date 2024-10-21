@@ -1,4 +1,4 @@
-package com.hhp.concertreservation.presentation.dto.queue;
+package com.hhp.concertreservation.A_presentation.dto.queue;
 
 import lombok.Builder;
 import lombok.Getter;

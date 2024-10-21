@@ -1,4 +1,4 @@
-package com.hhp.concertreservation.presentation.dto.payment;
+package com.hhp.concertreservation.A_presentation.dto.payment;
 
 import lombok.Builder;
 import lombok.Getter;

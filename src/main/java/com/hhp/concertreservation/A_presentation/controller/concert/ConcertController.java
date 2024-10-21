@@ -1,11 +1,11 @@
-package com.hhp.concertreservation.presentation.controller.concert;
+package com.hhp.concertreservation.A_presentation.controller.concert;
 
-import com.hhp.concertreservation.presentation.dto.concert.CheckAvailableDatesRes;
-import com.hhp.concertreservation.presentation.dto.concert.CheckAvailableDatesRes.AvailableDateAndSeat;
-import com.hhp.concertreservation.presentation.dto.concert.CheckAvailableSeatsRes;
-import com.hhp.concertreservation.presentation.dto.concert.CheckAvailableSeatsRes.seatInfo;
-import com.hhp.concertreservation.presentation.dto.concert.TemporarySeatsReservationReq;
-import com.hhp.concertreservation.presentation.dto.concert.TemporarySeatsReservationRes;
+import com.hhp.concertreservation.A_presentation.dto.concert.CheckAvailableDatesRes;
+import com.hhp.concertreservation.A_presentation.dto.concert.CheckAvailableDatesRes.AvailableDateAndSeat;
+import com.hhp.concertreservation.A_presentation.dto.concert.CheckAvailableSeatsRes;
+import com.hhp.concertreservation.A_presentation.dto.concert.CheckAvailableSeatsRes.seatInfo;
+import com.hhp.concertreservation.A_presentation.dto.concert.TemporarySeatsReservationReq;
+import com.hhp.concertreservation.A_presentation.dto.concert.TemporarySeatsReservationRes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
