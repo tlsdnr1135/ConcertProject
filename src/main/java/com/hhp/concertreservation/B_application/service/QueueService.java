@@ -87,7 +87,7 @@ public class QueueService {
             //최대 아니면
             return SelectQueueByConcertRes.builder()
                     .existWaitingQueue(existWaitingQueue)
-                    .queueRank(queueActiveUserCount)
+                    .queueRank(0)
                     .waitingSecond(0)
                     .build();
         }
@@ -98,7 +98,7 @@ public class QueueService {
 
         return SelectQueueByConcertRes.builder()
                 .existWaitingQueue(existWaitingQueue)
-                .queueRank(queueItemWaitingUserCount)
+                .queueRank(queueItemWaitingUserCount+1)
                 .waitingSecond(0)
                 .build();
     }
