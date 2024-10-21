@@ -5,10 +5,10 @@ import com.hhp.concertreservation.B_application.repository.QueueRepository;
 import com.hhp.concertreservation.B_application.repository.TokenRepository;
 import com.hhp.concertreservation.B_application.repository.UserRepository;
 import com.hhp.concertreservation.C_domain.member.User;
-import com.hhp.concertreservation.C_domain.queue.Queue;
-import com.hhp.concertreservation.C_domain.queue.QueueItem;
-import com.hhp.concertreservation.C_domain.queue.QueueStatus;
-import com.hhp.concertreservation.C_domain.queue.Token;
+import com.hhp.concertreservation.C_domain.queue.entity.Queue;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueStatus;
+import com.hhp.concertreservation.C_domain.queue.entity.Token;
 import com.hhp.concertreservation.F_common.SystemClockHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
@@ -72,21 +72,35 @@ public class QueueService {
      *                                                                                                 하나라도 이상하면 재발급 //
      */
 
+    /**
+     * 대기열 조회 (결국 여기 오는 애들은 온전한 애들만 온다 이걸 POLICY로 옮겨도 될거같음.
+     */
     public SelectQueueByConcertRes getQueue(UUID userId, Long concertId) {
-        // 토큰
-        int queueItemWaitingUserCount = queueRepository.getQueueItemWaitingUserCount(userId, concertId);
+        //최대 인원인지도 확인 해봐야함.
+        Queue queue = queueRepository.findQueueByConcertId(concertId);
+        int queueActiveUserCount = queueRepository.getQueueActiveUserCount(concertId);
 
-        if(queueItemWaitingUserCount > 0) {
+        boolean existWaitingQueue = false;
+
+        // 최대인지 확인.
+        if(!queue.checkMaxActiveQueue(queueActiveUserCount)){
+            //최대 아니면
             return SelectQueueByConcertRes.builder()
-                    .existWaitingQueue(true)
-                    .queueRank(queueItemWaitingUserCount)
+                    .existWaitingQueue(existWaitingQueue)
+                    .queueRank(queueActiveUserCount)
                     .waitingSecond(0)
                     .build();
         }
-        queueRepository.getQueueActiveUserCount(concertId);
 
+        // 최대일 경우 순서
+        int queueItemWaitingUserCount = queueRepository.getQueueItemWaitingProcedure(userId, concertId);
+        existWaitingQueue = true;
 
-        return null;
+        return SelectQueueByConcertRes.builder()
+                .existWaitingQueue(existWaitingQueue)
+                .queueRank(queueItemWaitingUserCount)
+                .waitingSecond(0)
+                .build();
     }
 
     /**

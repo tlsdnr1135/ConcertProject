@@ -1,7 +1,7 @@
 package com.hhp.concertreservation.D_infrastructure.repositoryImpl;
 
 import com.hhp.concertreservation.B_application.repository.TokenRepository;
-import com.hhp.concertreservation.C_domain.queue.Token;
+import com.hhp.concertreservation.C_domain.queue.entity.Token;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
