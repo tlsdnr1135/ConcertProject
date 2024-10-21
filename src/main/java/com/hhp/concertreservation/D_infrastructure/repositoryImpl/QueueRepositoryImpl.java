@@ -1,8 +1,8 @@
 package com.hhp.concertreservation.D_infrastructure.repositoryImpl;
 
 import com.hhp.concertreservation.B_application.repository.QueueRepository;
-import com.hhp.concertreservation.C_domain.queue.Queue;
-import com.hhp.concertreservation.C_domain.queue.QueueItem;
+import com.hhp.concertreservation.C_domain.queue.entity.Queue;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
 import com.hhp.concertreservation.D_infrastructure.jpa.QueueItemJpaRepository;
 import com.hhp.concertreservation.D_infrastructure.jpa.QueueJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class QueueRepositoryImpl implements QueueRepository {
     }
 
     @Override
-    public int getQueueItemWaitingUserCount(UUID tokenId, Long queueId) {
-        return queueItemJpaRepository.getQueueItemWaitingUserCount(tokenId, queueId);
+    public int getQueueItemWaitingProcedure(UUID tokenId, Long queueId) {
+        return queueItemJpaRepository.getQueueItemWaitingProcedure(tokenId, queueId);
     }
 }
