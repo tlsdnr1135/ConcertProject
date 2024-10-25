@@ -8,8 +8,12 @@ import java.time.LocalDateTime;
 @Component
 public class SystemClockHolder {
 
-    public LocalDateTime millis() {
-        return LocalDateTime.now(Clock.systemDefaultZone());
+    public LocalDateTime nowMillis() {
+        return LocalDateTime.now();
+    }
+
+    public LocalDateTime plusFiveMinMillis() {
+        return LocalDateTime.now().plusMinutes(5);
     }
 
 }
