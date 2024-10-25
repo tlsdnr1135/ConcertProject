@@ -1,0 +1,23 @@
+server:
+  port: 7000
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://swyg9.cp8aui86i2il.ap-northeast-2.rds.amazonaws.com:3306/testhangplus
+    username: sulbin
+    password: 12341234
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:signup-for-lecture
+#    username: yn3
+#    password: yn3
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
