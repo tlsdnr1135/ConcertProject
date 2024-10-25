@@ -3,9 +3,9 @@ package com.hhp.concertreservation.A_presentation.dto.queue;
 import lombok.Getter;
 
 @Getter
-public class AddConcertQueueReq {
+public class IssueTokenReq {
 
     private Long concertId;
-    private String userId;
+    private Long userId;
 
 }
