@@ -1,9 +1,7 @@
 package com.hhp.concertreservation.A_presentation.controller.queue;
 
-import com.hhp.concertreservation.A_presentation.dto.queue.AddConcertQueueReq;
-import com.hhp.concertreservation.A_presentation.dto.queue.AddConcertQueueRes;
-import com.hhp.concertreservation.A_presentation.dto.queue.SelectQueueByConcertRes;
-import com.hhp.concertreservation.B_application.facade.QueueFacade;
+import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueInput;
+import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueOutput;
 import com.hhp.concertreservation.B_application.service.QueueService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,42 +13,29 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @Tag(name = "대기열")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/queue")
+@RequestMapping("/queues")
 public class QueueController {
 
     private final QueueService queueService;
 
     @Operation(summary = "콘서트 별 대기열 조회", description = "콘서트 별 대기열 유무, 대기 순위, 대기 시간을 조회해준다.")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = SelectQueueByConcertRes.class)))
+            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = RemainingTimeInQueueOutput.class)))
     })
     @GetMapping("/{concertId}")
-    public ResponseEntity<?> SelectQueueByConcert(@PathVariable("concertId") Long concertId){
-
-        queueService.getQueue(UUID.randomUUID(), concertId);
-
-        SelectQueueByConcertRes result = SelectQueueByConcertRes.builder()
+    public ResponseEntity<RemainingTimeInQueueOutput> selectQueueByConcert(@RequestHeader("token") String token, @PathVariable("concertId") Long concertId) {
+        RemainingTimeInQueueInput input = RemainingTimeInQueueInput.builder()
+                .token(token)
+                .concertId(concertId)
                 .build();
 
-        return ResponseEntity.ok(result);
-    }
+        RemainingTimeInQueueOutput output = queueService.selectRemainingTimeInQueue(input);
 
-    @Operation(summary = "콘서트 대기열 추가", description = "대기열 토큰을 발급해주고 대기열에 추가한다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = AddConcertQueueRes.class)))
-    })
-    @PostMapping("/add")
-    public ResponseEntity<?> AddConcertQueue(@RequestBody AddConcertQueueReq req){
-
-        AddConcertQueueRes result = AddConcertQueueRes.builder()
-                .build();
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(output);
     }
 
 }
