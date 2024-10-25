@@ -1,5 +1,6 @@
 package com.hhp.concertreservation.C_domain.queue.entity;
 
+import com.hhp.concertreservation.C_domain.enums.QueueStatus;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,13 +19,11 @@ public class QueueItem {
     @Column(name = "ID")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "QUEUE_ID")
-    private Queue queue;
+    @Column(name = "QUEUE_ID")
+    private Long queueId;
 
-    @OneToOne
-    @JoinColumn(name = "TOKEN_ID")
-    private Token token;
+    @Column(name = "TOKEN")
+    private String token;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS")
@@ -34,11 +33,15 @@ public class QueueItem {
     private LocalDateTime createdAt;
 
     @Builder
-    public QueueItem(Long id, Queue queue, Token token, QueueStatus status, LocalDateTime createdAt) {
+    public QueueItem(Long id, Long queueId, String token, QueueStatus status, LocalDateTime createdAt) {
         this.id = id;
-        this.queue = queue;
+        this.queueId = queueId;
         this.token = token;
         this.status = status;
         this.createdAt = createdAt;
+    }
+
+    public void changeStatus(QueueStatus status) {
+        this.status = status;
     }
 }

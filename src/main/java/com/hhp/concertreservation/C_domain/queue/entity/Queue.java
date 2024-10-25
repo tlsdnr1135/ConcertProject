@@ -1,17 +1,18 @@
 package com.hhp.concertreservation.C_domain.queue.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @Entity
 @Table(name = "QUEUE")
 public class Queue {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "QUEUE_ID")
     private Long id;
 
@@ -21,12 +22,18 @@ public class Queue {
     @Column(name = "MAX_ACTIVE_USER")
     private int maxActiveUser;
 
-    public boolean checkMaxActiveQueue(int activeUserCount) {
+    @Builder
+    public Queue(Long id, Long concertId, int maxActiveUser) {
+        this.id = id;
+        this.concertId = concertId;
+        this.maxActiveUser = maxActiveUser;
+    }
+
+    public boolean isMaxActiveUser(int activeUserCount) {
         if(this.maxActiveUser <= activeUserCount) {
             return true;
         }
         return false;
     }
-
 
 }
