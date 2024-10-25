@@ -6,8 +6,7 @@ import java.time.LocalDateTime;
 @Getter
 public class TemporarySeatsReservationReq {
 
-    private Long concertId;
-    private String userId;
-    private LocalDateTime reservationDate;
+    private Long seatId;
+    private Long userId;
 
 }
