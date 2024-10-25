@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://swyg9.cp8aui86i2il.ap-northeast-2.rds.amazonaws.com:3306/hangplus
+    url: jdbc:mysql://swyg9.cp8aui86i2il.ap-northeast-2.rds.amazonaws.com:3306/testhangplus
     username: sulbin
     password: 12341234
 #  datasource:
@@ -14,7 +14,7 @@ spring:
 #    password: yn3
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
