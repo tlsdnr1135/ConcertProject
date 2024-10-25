@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class ChargePointsReq {
 
-    private String userId;
+    private Long userId;
     private int chargePoint;
 
 }

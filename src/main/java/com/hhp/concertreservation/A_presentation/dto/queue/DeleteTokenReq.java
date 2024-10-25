@@ -4,11 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class AddConcertQueueRes {
-    private String token;
+public class DeleteTokenReq {
 
-    @Builder
-    public AddConcertQueueRes(String token) {
-        this.token = token;
-    }
+    private String token;
+    private Long concertId;
+
 }
