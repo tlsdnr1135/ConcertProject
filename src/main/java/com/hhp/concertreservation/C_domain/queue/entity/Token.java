@@ -1,7 +1,5 @@
 package com.hhp.concertreservation.C_domain.queue.entity;
 
-
-import com.hhp.concertreservation.C_domain.member.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,18 +18,20 @@ public class Token {
     @Column(name = "ID")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "USER_ID")
-    private User user;
+    @Column(updatable = false, nullable = false, unique = true)
+    private String token; //UUID
+
+    @Column(name = "USER_ID")
+    private Long userId;
 
     @Column(name = "EXPIRED_DATE")
     private LocalDateTime expiredDate;
 
     @Builder
-    public Token(Long id, User user, LocalDateTime expiredDate) {
+    public Token(Long id, String token, Long userId, LocalDateTime expiredDate) {
         this.id = id;
-        this.user = user;
+        this.token = token;
+        this.userId = userId;
         this.expiredDate = expiredDate;
     }
-
 }

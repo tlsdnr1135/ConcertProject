@@ -9,11 +9,12 @@ import lombok.Getter;
 public class PointHistory {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private Long id;
 
     @Column(name = "USER_ID")
-    private String userId;
+    private Long userId;
 
     @Column(name = "POINT")
     private int point;

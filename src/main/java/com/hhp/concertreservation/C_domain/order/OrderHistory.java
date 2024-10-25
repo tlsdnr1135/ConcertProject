@@ -18,7 +18,7 @@ public class OrderHistory {
     private Long orderId;
 
     @Column(name = "USER_ID")
-    private String userId;
+    private Long userId;
 
     @Column(name = "CONCERT_DETAIL_ID")
     private Long concertDetailId;
