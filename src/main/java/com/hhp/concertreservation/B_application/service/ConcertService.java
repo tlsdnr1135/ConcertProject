@@ -41,17 +41,14 @@ public class ConcertService {
         //콘서트 날짜 조회 list
         List<ConcertDetail> concertDetailList = concertDetailRepository.findConcertDetailByConcertId(concert.getId());
 
-        List<AvailableDateAndSeat> dateLists= new ArrayList<>();
-
-        concertDetailList.stream().forEach(concertDetail -> {
+        List<AvailableDateAndSeat> dateLists = concertDetailList.stream().map(concertDetail -> {
             //TODO 날짜별 예약 가능한 좌석 수, concertRepository.findSeatCountByConcertDetailIdAndTemporary
-            AvailableDateAndSeat availableDateAndSeat = AvailableDateAndSeat.builder()
+            return AvailableDateAndSeat.builder()
                     .id(concertDetail.getId())
                     .date(concertDetail.getPerformanceDate())
                     .maxSeatCnt(concertDetail.getMaxSeatCount())
                     .build();
-            dateLists.add(availableDateAndSeat);
-        });
+        }).toList();
 
         ConcertAvailableDatesOutput output = ConcertAvailableDatesOutput.builder()
                 .dateLists(dateLists)

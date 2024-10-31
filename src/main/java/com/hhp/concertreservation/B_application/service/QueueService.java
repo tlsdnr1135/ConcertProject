@@ -1,10 +1,13 @@
 package com.hhp.concertreservation.B_application.service;
 
+import com.hhp.concertreservation.B_application.dto.queue.EntryQueueInput;
 import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueOutput;
 import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueInput;
 import com.hhp.concertreservation.B_application.repository.queue.QueueItemRepository;
 import com.hhp.concertreservation.B_application.repository.queue.QueueRepository;
+import com.hhp.concertreservation.C_domain.enums.QueueStatus;
 import com.hhp.concertreservation.C_domain.queue.entity.Queue;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
 import com.hhp.concertreservation.F_common.SystemClockHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,13 +52,16 @@ public class QueueService {
     }
 
     /**
-     * 대기열 상태 변경
+     * 대기열 상태 변경 (대기열 진입)
      */
     @Transactional
-    public void changeQueueStatus(String token, Long concertId) {
+    public void changeQueueStatus(EntryQueueInput input) {
         //WAITING -> ACTIVE
-//        QueueItem queueItem = queueRepository.findQueueItemByTokenAndQueueId(token, concertId);
-//        queueItem.changeStatus(QueueStatus.ACTIVE);
+        QueueItem queueItem = queueItemRepository.findQueueItemByTokenAndQueueId(input.getToken(), input.getQueueId()).orElseThrow(
+                //TODO EXCEPTION
+                () -> new RuntimeException("해당하는 대기열이 없습니다.")
+        );
+        queueItem.changeStatus(QueueStatus.ACTIVE);
     }
 
 }

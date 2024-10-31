@@ -1,10 +1,14 @@
 package com.hhp.concertreservation.B_application.service;
 
+import com.hhp.concertreservation.B_application.dto.queue.EntryQueueInput;
 import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueInput;
 import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueOutput;
 import com.hhp.concertreservation.B_application.repository.queue.QueueItemRepository;
 import com.hhp.concertreservation.B_application.repository.queue.QueueRepository;
+import com.hhp.concertreservation.C_domain.enums.QueueStatus;
+import com.hhp.concertreservation.C_domain.order.Order;
 import com.hhp.concertreservation.C_domain.queue.entity.Queue;
+import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class QueueServiceTest {
@@ -151,6 +157,32 @@ class QueueServiceTest {
         assertEquals(expectOutput.isExistWaitingQueue(), output.isExistWaitingQueue());
         assertEquals(expectOutput.getQueueRank(), output.getQueueRank());
         assertEquals(expectOutput.getWaitingSecond(), output.getWaitingSecond());
+    }
+
+    @Test
+    @DisplayName("성공_콘서트_대기열_진입")
+    void success_entryQueueByConcert() {
+        //given
+        String token = "123-123";
+        Long queueId = 1L;
+
+        QueueItem queueItem = QueueItem.builder()
+                .status(QueueStatus.WAITING)
+                .build();
+
+        EntryQueueInput input = EntryQueueInput.builder()
+                .token(token)
+                .queueId(queueId)
+                .build();
+
+        when(queueItemRepository.findQueueItemByTokenAndQueueId(token, queueId)).thenReturn(Optional.of(queueItem));
+
+        //when
+        queueService.changeQueueStatus(input);
+
+        //then
+        assertEquals(QueueStatus.ACTIVE, queueItem.getStatus());
 
     }
+
 }
