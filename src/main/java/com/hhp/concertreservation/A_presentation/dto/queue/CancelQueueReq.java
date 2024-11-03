@@ -1,10 +1,9 @@
 package com.hhp.concertreservation.A_presentation.dto.queue;
 
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class DeleteTokenReq {
+public class CancelQueueReq {
 
     private String token;
     private Long concertId;

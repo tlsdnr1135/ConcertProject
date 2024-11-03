@@ -27,61 +27,21 @@ import java.util.List;
 @Service
 public class PaymentService {
 
-    private final ConcertRepository concertRepository;
-    private final SeatRepository seatRepository;
-    private final PointRepository pointRepository;
-    private final QueueItemRepository queueItemRepository;
-    private final QueueRepository queueRepository;
-    private final TokenRepository tokenRepository;
     private final PaymentRepository paymentRepository;
 
 
     /**
-     * 결제
+     * 주문
      */
     @Transactional
-    public void concertPayment(ConcertPaymentInput input) {
-
-        //좌석 상태 변경 -> COMPLETE
-        Seat seat = seatRepository.findSeatsBySeatId(input.getSeatIds()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("좌석이 존재하지 않습니다.")
-        );
-        seat.changeStatusComplete();
-        seat.changeSeatUserId(input.getUserId());
-
-        //포인트 차감
-        Point point = pointRepository.findPointByUserId(input.getUserId()).orElseThrow(
-                () -> new RuntimeException("해당하는 유저가 없습니다.")
-        );
-        point.deductionPoint(input.getAmount());
-
-        //대기열 삭제
-        Queue queue = queueRepository.findQueueByConcertId(input.getConcertId()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당하는 대기열이 없습니다.")
-        );
-        QueueItem queueItem = queueItemRepository.findQueueItemByTokenAndQueueId(input.getToken(), queue.getId()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당 대기열이 존재하지 않습니다.")
-        );
-        queueItemRepository.deleteQueueItemById(queueItem.getId());
-
-        //토큰 삭제
-        //삭제할 토큰이 있는지 확인.
-        Token token = tokenRepository.findTokenByToken(input.getToken()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당하는 토큰이 없습니다.")
-        );
-        tokenRepository.deleteTokenByTokenId(token.getId());
-
+    public void saveOrder(Long userId, Long concertId, Long concertDetailId, Long seatId, int amount) {
         //주문 save
         Order order = Order.builder()
-                .userId(input.getUserId())
-                .concertId(input.getConcertId())
-                .concertDetailId(input.getConcertDetailId())
-                .seatId(input.getSeatIds())
-                .amount(input.getAmount())
+                .userId(userId)
+                .concertId(concertId)
+                .concertDetailId(concertDetailId)
+                .seatId(seatId)
+                .amount(amount)
                 .status(OrderStatus.PAYMENT)
                 .build();
 

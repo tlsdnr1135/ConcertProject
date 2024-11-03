@@ -21,7 +21,7 @@ public class QueueItemRepositoryImpl implements QueueItemRepository {
     }
 
     @Override
-    public int getQueueItemWaitingProcedure(String token, Long queueId) {
+    public int getWaitingRank(String token, Long queueId) {
         return queueItemJpaRepository.getQueueItemWaitingProcedure(token, queueId);
     }
 

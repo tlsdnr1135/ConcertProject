@@ -55,5 +55,14 @@ public class PointService {
                 .build();
     }
 
+    /**
+     * 포인트 차감
+     */
+    public void deductionPoint(Long userId, int amount) {
+        Point point = pointRepository.findPointByUserId(userId).orElseThrow(
+                () -> new RuntimeException("해당하는 유저가 없습니다.")
+        );
+        point.deductionPoint(amount);
+    }
 
 }

@@ -6,16 +6,16 @@ import lombok.Getter;
 @Getter
 public class RemainingTimeInQueueOutput {
 
-    private boolean existWaitingQueue = false;
+    private boolean isQueueMax = false;
 
-    private int queueRank = 0;
+    private int waitingRank = 0;
 
     private int waitingSecond = 0;
 
     @Builder
-    public RemainingTimeInQueueOutput(boolean existWaitingQueue, int queueRank, int waitingSecond) {
-        this.existWaitingQueue = existWaitingQueue;
-        this.queueRank = queueRank;
+    public RemainingTimeInQueueOutput(boolean isQueueMax, int waitingRank, int waitingSecond) {
+        this.isQueueMax = isQueueMax;
+        this.waitingRank = waitingRank;
         this.waitingSecond = waitingSecond;
     }
 }

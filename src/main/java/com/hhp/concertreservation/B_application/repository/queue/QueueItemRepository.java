@@ -11,7 +11,7 @@ public interface QueueItemRepository {
     void save(QueueItem queueItem); // 저장
 
     int getQueueActiveUserCount(Long ConcertId);
-    int getQueueItemWaitingProcedure(String token, Long queueId);
+    int getWaitingRank(String token, Long queueId);
 
     boolean existsQueueItemByTokenAndQueueId(String token, Long queueId);
     Optional<QueueItem> findQueueItemByTokenAndQueueId(String token, Long queueId);

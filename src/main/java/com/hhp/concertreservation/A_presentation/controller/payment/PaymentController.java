@@ -3,6 +3,7 @@ package com.hhp.concertreservation.A_presentation.controller.payment;
 import com.hhp.concertreservation.A_presentation.dto.payment.*;
 import com.hhp.concertreservation.B_application.dto.payment.ConcertPaymentInput;
 import com.hhp.concertreservation.B_application.dto.payment.ConcertPaymentOutput;
+import com.hhp.concertreservation.B_application.facade.payment.PaymentFacade;
 import com.hhp.concertreservation.B_application.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,7 +26,7 @@ import java.util.List;
 @RequestMapping("/payments")
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final PaymentFacade paymentFacade;
 
     @Operation(summary = "결제", description = "콘서트 좌석을 예약확정과 포인트 차감 대기열 해제를 한다.")
     @ApiResponses({
@@ -42,7 +43,7 @@ public class PaymentController {
                 .seatIds(req.getSeatIds())
                 .amount(req.getAmount())
                 .build();
-        paymentService.concertPayment(input);
+        paymentFacade.concertPayment(input);
 
         return ResponseEntity.ok(null);
     }

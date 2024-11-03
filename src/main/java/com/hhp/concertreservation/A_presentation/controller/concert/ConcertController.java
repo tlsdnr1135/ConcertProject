@@ -4,6 +4,7 @@ import com.hhp.concertreservation.B_application.dto.concert.*;
 import com.hhp.concertreservation.B_application.dto.concert.ConcertAvailableSeatOutput.SeatInfo;
 import com.hhp.concertreservation.A_presentation.dto.concert.TemporarySeatsReservationReq;
 import com.hhp.concertreservation.A_presentation.dto.concert.TemporarySeatsReservationRes;
+import com.hhp.concertreservation.B_application.facade.concert.ConcertFacade;
 import com.hhp.concertreservation.B_application.service.ConcertService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -23,12 +24,9 @@ import java.util.List;
 @RequestMapping("/concerts")
 public class ConcertController {
 
-    private final ConcertService concertService;
+    private final ConcertFacade concertFacade;
 
     @Operation(summary = "예약 가능한 날짜 조회", description = "예약 가능한 날짜를 조회한다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = ConcertAvailableDatesOutput.class)))
-    })
     @GetMapping("/available-dates/{concertId}")
     public ResponseEntity<ConcertAvailableDatesOutput> selectConcertAvailableDates(@PathVariable("concertId") Long concertId){
 
@@ -36,15 +34,12 @@ public class ConcertController {
                 .concertId(concertId)
                 .build();
 
-        ConcertAvailableDatesOutput checkAvailableDatesRes = concertService.selectConcertAvailableDates(input);
+        ConcertAvailableDatesOutput checkAvailableDatesRes = concertFacade.selectConcertAvailableDates(input);
 
         return ResponseEntity.ok(checkAvailableDatesRes);
     }
 
     @Operation(summary = "좌석 조회", description = "좌석을 조회한다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = ConcertAvailableSeatOutput.class)))
-    })
     @GetMapping("/available-seats/{concertDetailId}")
     public ResponseEntity<ConcertAvailableSeatOutput> selectConcertAvailableSeats(@PathVariable("concertDetailId") Long concertDetailId){
 
@@ -52,24 +47,21 @@ public class ConcertController {
                 .concertDetailId(concertDetailId)
                 .build();
 
-        ConcertAvailableSeatOutput output = concertService.selectAvailableSeats(input);
+        ConcertAvailableSeatOutput output = concertFacade.selectAvailableSeats(input);
 
         return ResponseEntity.ok(output);
     }
 
     @Operation(summary = "좌석 임시 예약", description = "좌석을 임시 예약한다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "예약 성공")
-    })
     @PostMapping("/reservation-temporary")
-    public ResponseEntity<?> TemporarySeatsReservation(@RequestBody TemporarySeatsReservationReq req){
+    public ResponseEntity<Void> TemporarySeatsReservation(@RequestBody TemporarySeatsReservationReq req){
 
         TemporarySeatsReservationInput input = TemporarySeatsReservationInput.builder()
                 .userId(req.getUserId())
                 .seatId(req.getSeatId())
                 .build();
 
-        concertService.temporarySeatsReservation(input);
+        concertFacade.temporarySeatsReservation(input);
 
         return ResponseEntity.ok(null);
     }

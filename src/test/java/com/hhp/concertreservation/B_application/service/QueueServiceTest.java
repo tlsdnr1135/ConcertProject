@@ -6,7 +6,6 @@ import com.hhp.concertreservation.B_application.dto.queue.RemainingTimeInQueueOu
 import com.hhp.concertreservation.B_application.repository.queue.QueueItemRepository;
 import com.hhp.concertreservation.B_application.repository.queue.QueueRepository;
 import com.hhp.concertreservation.C_domain.enums.QueueStatus;
-import com.hhp.concertreservation.C_domain.order.Order;
 import com.hhp.concertreservation.C_domain.queue.entity.Queue;
 import com.hhp.concertreservation.C_domain.queue.entity.QueueItem;
 import org.junit.jupiter.api.DisplayName;
@@ -70,8 +69,8 @@ class QueueServiceTest {
 
         //then
         assertNotNull(output);
-        assertEquals(expectOutput.isExistWaitingQueue(), output.isExistWaitingQueue());
-        assertEquals(expectOutput.getQueueRank(), output.getQueueRank());
+        assertEquals(expectOutput.isQueueMax(), output.isQueueMax());
+        assertEquals(expectOutput.getWaitingRank(), output.getWaitingRank());
         assertEquals(expectOutput.getWaitingSecond(), output.getWaitingSecond());
 
     }
@@ -104,7 +103,7 @@ class QueueServiceTest {
 
         when(queueRepository.findQueueByConcertId(concertId)).thenReturn(Optional.of(queue));
         when(queueItemRepository.getQueueActiveUserCount(concertId)).thenReturn(currentActiveUserCount);
-        when(queueItemRepository.getQueueItemWaitingProcedure(token, concertId)).thenReturn(0);
+        when(queueItemRepository.getWaitingRank(token, concertId)).thenReturn(0);
 
 
         //when
@@ -112,8 +111,8 @@ class QueueServiceTest {
 
         //then
         assertNotNull(output);
-        assertEquals(expectOutput.isExistWaitingQueue(), output.isExistWaitingQueue());
-        assertEquals(expectOutput.getQueueRank(), output.getQueueRank());
+        assertEquals(expectOutput.isQueueMax(), output.isQueueMax());
+        assertEquals(expectOutput.getWaitingRank(), output.getWaitingRank());
         assertEquals(expectOutput.getWaitingSecond(), output.getWaitingSecond());
 
     }
@@ -146,7 +145,7 @@ class QueueServiceTest {
 
         when(queueRepository.findQueueByConcertId(concertId)).thenReturn(Optional.of(queue));
         when(queueItemRepository.getQueueActiveUserCount(concertId)).thenReturn(currentActiveUserCount);
-        when(queueItemRepository.getQueueItemWaitingProcedure(token, concertId)).thenReturn(5);
+        when(queueItemRepository.getWaitingRank(token, concertId)).thenReturn(5);
 
 
         //when
@@ -154,8 +153,8 @@ class QueueServiceTest {
 
         //then
         assertNotNull(output);
-        assertEquals(expectOutput.isExistWaitingQueue(), output.isExistWaitingQueue());
-        assertEquals(expectOutput.getQueueRank(), output.getQueueRank());
+        assertEquals(expectOutput.isQueueMax(), output.isQueueMax());
+        assertEquals(expectOutput.getWaitingRank(), output.getWaitingRank());
         assertEquals(expectOutput.getWaitingSecond(), output.getWaitingSecond());
     }
 
@@ -178,7 +177,7 @@ class QueueServiceTest {
         when(queueItemRepository.findQueueItemByTokenAndQueueId(token, queueId)).thenReturn(Optional.of(queueItem));
 
         //when
-        queueService.changeQueueStatus(input);
+        queueService.entryQueue(input);
 
         //then
         assertEquals(QueueStatus.ACTIVE, queueItem.getStatus());

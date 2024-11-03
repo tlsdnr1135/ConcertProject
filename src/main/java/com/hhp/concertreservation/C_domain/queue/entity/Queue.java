@@ -29,7 +29,7 @@ public class Queue {
         this.maxActiveUser = maxActiveUser;
     }
 
-    public boolean isMaxActiveUser(int activeUserCount) {
+    public boolean isQueueMaxActiveUser(int activeUserCount) {
         if(this.maxActiveUser <= activeUserCount) {
             return true;
         }

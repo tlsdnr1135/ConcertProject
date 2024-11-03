@@ -3,6 +3,7 @@ package com.hhp.concertreservation.B_application.service;
 import com.hhp.concertreservation.B_application.dto.concert.*;
 import com.hhp.concertreservation.B_application.dto.concert.ConcertAvailableDatesOutput.AvailableDateAndSeat;
 import com.hhp.concertreservation.B_application.dto.concert.ConcertAvailableSeatOutput.SeatInfo;
+import com.hhp.concertreservation.B_application.dto.payment.ConcertPaymentInput;
 import com.hhp.concertreservation.B_application.repository.concert.ConcertDetailRepository;
 import com.hhp.concertreservation.B_application.repository.concert.ConcertRepository;
 import com.hhp.concertreservation.B_application.repository.concert.SeatRepository;
@@ -13,6 +14,7 @@ import com.hhp.concertreservation.C_domain.enums.SeatStatus;
 import com.hhp.concertreservation.F_common.SystemClockHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,10 +52,9 @@ public class ConcertService {
                     .build();
         }).toList();
 
-        ConcertAvailableDatesOutput output = ConcertAvailableDatesOutput.builder()
+        return ConcertAvailableDatesOutput.builder()
                 .dateLists(dateLists)
                 .build();
-        return output;
     }
 
     /**
@@ -78,12 +79,11 @@ public class ConcertService {
                 .filter(seatInfo -> SeatStatus.EMPTY.toString().equals(seatInfo.getStatus()))
                 .count();
 
-        ConcertAvailableSeatOutput result = ConcertAvailableSeatOutput.builder()
+        return ConcertAvailableSeatOutput.builder()
                 .totalSeatCnt(totalSeatCnt)
                 .availableSeatCnt(availableSeatCnt)
                 .seatInfoList(seatInfoList)
                 .build();
-        return result;
     }
 
 
@@ -106,6 +106,19 @@ public class ConcertService {
         // 좌석 만료 시간 변경.
         seat.changeExpiredAt(SystemClockHolder.plusFiveMinMillis());
 
+    }
+
+    /**
+     * 좌석 예약 완료
+     */
+    @Transactional
+    public void completeSeatsReservation(Long seatId) {
+        Seat seat = seatRepository.findSeatsBySeatId(seatId).orElseThrow(
+                //TODO EXCEPTION
+                () -> new RuntimeException("좌석이 존재하지 않습니다.")
+        );
+        seat.changeStatusComplete();
+        seat.changeSeatUserId(seatId);
     }
 
 }

@@ -1,8 +1,7 @@
 package com.hhp.concertreservation.A_presentation.controller.queue;
 
-import com.hhp.concertreservation.A_presentation.dto.queue.DeleteTokenReq;
-import com.hhp.concertreservation.A_presentation.dto.queue.IssueTokenReq;
-import com.hhp.concertreservation.B_application.dto.queue.*;
+import com.hhp.concertreservation.A_presentation.dto.token.IssueTokenReq;
+import com.hhp.concertreservation.B_application.dto.token.*;
 import com.hhp.concertreservation.B_application.service.TokenService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -59,22 +58,7 @@ public class TokenController {
         return ResponseEntity.ok(output);
     }
 
-    @Operation(summary = "대기열 토큰 삭제", description = "대기열 토큰을 삭제한다.")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "조회 성공", content = @Content(schema = @Schema(implementation = IssueTokenOutput.class)))
-    })
-    @PostMapping("/delete")
-    public ResponseEntity<?> deleteToken(@RequestBody DeleteTokenReq req){
 
-        DeleteTokenInput input = DeleteTokenInput.builder()
-                .token(req.getToken())
-                .concertId(req.getConcertId())
-                .build();
-
-        tokenService.deleteToken(input);
-
-        return ResponseEntity.ok(null);
-    }
 
 
 

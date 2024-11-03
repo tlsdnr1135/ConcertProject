@@ -1,6 +1,6 @@
 package com.hhp.concertreservation.B_application.service;
 
-import com.hhp.concertreservation.B_application.dto.queue.*;
+import com.hhp.concertreservation.B_application.dto.token.*;
 import com.hhp.concertreservation.B_application.repository.queue.QueueItemRepository;
 import com.hhp.concertreservation.B_application.repository.queue.QueueRepository;
 import com.hhp.concertreservation.B_application.repository.queue.TokenRepository;
@@ -139,7 +139,7 @@ class TokenServiceTest {
     @DisplayName("성공_토큰 삭제")
     void success_deleteToken() {
         //given
-        DeleteTokenInput input = DeleteTokenInput.builder().build();
+        CancelQueueInput input = CancelQueueInput.builder().build();
 
         Token token = Token.builder().build();
         Queue queue = Queue.builder().build();

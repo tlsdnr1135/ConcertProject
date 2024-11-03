@@ -1,6 +1,6 @@
 package com.hhp.concertreservation.B_application.service;
 
-import com.hhp.concertreservation.B_application.dto.queue.*;
+import com.hhp.concertreservation.B_application.dto.token.*;
 import com.hhp.concertreservation.B_application.repository.queue.QueueItemRepository;
 import com.hhp.concertreservation.B_application.repository.queue.QueueRepository;
 import com.hhp.concertreservation.B_application.repository.queue.TokenRepository;
@@ -117,27 +117,4 @@ public class TokenService {
                 .build();
     }
 
-    /**
-     * 토큰 삭제
-     */
-    @Transactional
-    public void deleteToken(DeleteTokenInput input) {
-        //삭제할 대기열이 있는지 확인 후 삭제.
-        Queue queue = queueRepository.findQueueByConcertId(input.getConcertId()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당하는 대기열이 없습니다.")
-        );
-        QueueItem queueItem = queueItemRepository.findQueueItemByTokenAndQueueId(input.getToken(), queue.getId()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당 대기열이 존재하지 않습니다.")
-        );
-        queueItemRepository.deleteQueueItemById(queueItem.getId());
-
-        //삭제할 토큰이 있는지 확인.
-        Token token = tokenRepository.findTokenByToken(input.getToken()).orElseThrow(
-                //TODO EXCEPTION
-                () -> new RuntimeException("해당하는 토큰이 없습니다.")
-        );
-        tokenRepository.deleteTokenByTokenId(token.getId());
-    }
 }
