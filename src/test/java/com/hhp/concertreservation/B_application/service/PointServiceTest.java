@@ -90,7 +90,7 @@ class PointServiceTest {
 
 
         //when
-        ChargePointsOutput output = pointService.chargePoints(input);
+        Point output = pointService.chargePoints(input.getUserId(), input.getChargePoint());
 
 //        ArgumentCaptor<Point> argumentCaptor = ArgumentCaptor.forClass(Point.class);
 //        verify(pointRepository, times(1)).save(argumentCaptor.capture());

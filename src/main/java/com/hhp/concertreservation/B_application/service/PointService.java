@@ -20,25 +20,28 @@ public class PointService {
     private final PointRepository pointRepository;
     private final UserRepository userRepository;
 
+    /**
+     * 포인트 조회
+     */
     @Transactional
-    public SelectPointsOutput selectPoints(SelectPointsInput input) {
-        User user = userRepository.findUserByUserId(input.getUserId()).orElseThrow(
+    public int selectPoints(Long userId) {
+        User user = userRepository.findUserByUserId(userId).orElseThrow(
                 //TODO EXCEPTION
                 ()-> new RuntimeException("해당하는 유저 없습니다.")
         );
         Point point = pointRepository.findPointByUserId(user.getId()).orElseThrow(
+                //TODO EXCEPTION
                 () -> new RuntimeException("유저에 해당하는 포인트가 없습니다.")
         );
-
-        SelectPointsOutput output = SelectPointsOutput.builder()
-                .point(point.getPoint())
-                .build();
-        return output;
+        return point.getPoint();
     }
 
+    /**
+     * 포인트 충전
+     */
     @Transactional
-    public ChargePointsOutput chargePoints(ChargePointsInput input) {
-        User user = userRepository.findUserByUserId(input.getUserId()).orElseThrow(
+    public Point chargePoints(Long userId, int chargePoint) {
+        User user = userRepository.findUserByUserId(userId).orElseThrow(
                 //TODO EXCEPTION
                 ()-> new RuntimeException("해당하는 유저 없습니다.")
         );
@@ -46,23 +49,25 @@ public class PointService {
                 () -> new RuntimeException("유저에 해당하는 포인트가 없습니다.")
         );
 
-        point.chargePoint(input.getChargePoint());
+        point.chargePoint(chargePoint);
 
-//        pointRepository.save(point);
+        Point save = pointRepository.save(point);
 
-        return ChargePointsOutput.builder()
-                .point(point.getPoint())
-                .build();
+        return save;
     }
 
     /**
      * 포인트 차감
      */
-    public void deductionPoint(Long userId, int amount) {
+    public Point deductionPoint(Long userId, int amount) {
         Point point = pointRepository.findPointByUserId(userId).orElseThrow(
                 () -> new RuntimeException("해당하는 유저가 없습니다.")
         );
         point.deductionPoint(amount);
+
+        Point save = pointRepository.save(point);
+
+        return save;
     }
 
 }

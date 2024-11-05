@@ -39,7 +39,7 @@ public class Point {
     }
 
     public void deductionPoint(int point) {
-        if(this.point + point <= 0) {
+        if(this.point - point <= 0) {
             //TODO EXCEPTION
             throw new RuntimeException("포인트가 이상하다.!");
         }
